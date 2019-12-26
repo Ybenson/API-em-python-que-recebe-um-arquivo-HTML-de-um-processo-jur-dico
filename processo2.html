@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Dec 24 00:10:28 2019
+
+@author: aluno
+"""
+
+from bs4 import BeautifulSoup
+
+
+path = '/home/aluno/Desktop/archive/'
+file_read = 'processo1.html'
+arquivo = open(path + file_read, 'r')
+documento = arquivo.read()
+
+
+
+soup = BeautifulSoup(documento, "lxml")
+selector = 'html > body > div > table > tbody > tr > td > div > table > tbody > tr > td > table > tbody > tr > td > span'
+numero_de_processo = (soup.select(selector))
+soup = BeautifulSoup(str(numero_de_processo[0]))
+selector = 'html > body > span'
+found = soup.select(selector)
+numero_de_processo = soup.find('span').contents
+
+numero_de_processo = numero_de_processo[0].strip()
+print(f'Número do processo: {numero_de_processo}')
+
+
+soup = BeautifulSoup(documento, "lxml")
+selector = 'html > body > div > table > tbody > tr > td > div > table > tbody > tr > td > span'
+valor_da_causa = (soup.select(selector))
+soup = BeautifulSoup(str(valor_da_causa[5]))
+selector = 'span'
+found = soup.select(selector)
+valor_da_causa = soup.find('span').contents
+
+valor_da_causa = valor_da_causa[0].strip()
+valor_da_causa = valor_da_causa.replace(" ", "")
+
+print(f'Valor da causa: {valor_da_causa}')
+
+
+soup = BeautifulSoup(documento, "lxml")
+selector = 'html > body > div > table > tbody > tr > td > div > table > tbody > tr > td > table > tbody > tr > td > span > span'
+classe = (soup.select(selector))
+soup = BeautifulSoup(str(classe[0]))
+selector = 'span'
+found = soup.select(selector)
+classe = soup.find('span').contents
+classe = classe[0].strip()
+
+print(f'Classe: {classe}')
+
+
+soup = BeautifulSoup(documento, "lxml")
+selector = 'html > body > div > table > tbody > tr > td > div > table > tbody > tr > td > span'
+nome_do_juiz = (soup.select(selector))
+soup = BeautifulSoup(str(nome_do_juiz[4]))
+selector = 'span'
+found = soup.select(selector)
+nome_do_juiz = soup.find('span').contents
+nome_do_juiz = nome_do_juiz[0].strip()
+
+print(f'Nome do Juiz: {nome_do_juiz}')
+
+
+
+"""soup = BeautifulSoup(documento, "lxml")
+selector = 'html > body > div > table > tbody > tr > td > table > tbody > tr > td > td'
+nome_do_juiz = (soup.select(selector))
+soup = BeautifulSoup(str(nome_do_juiz[6]))
+
+selector = 'span'
+found = soup.select(selector)
+nome_do_juiz = soup.find('span').contents
+print(nome_do_juiz)
+"""
+
+
+
+
+
+
+soup = BeautifulSoup(documento, "lxml")
+selector = 'html > body > div > table > tbody > tr > td > table > tbody'
+ultima_movimentacao = (soup.select(selector))
+soup = BeautifulSoup(str(ultima_movimentacao[6]))
+selector = 'span'
+found = soup.select(selector)
+ultima_movimentacao = soup.find('span').contents
+ultima_movimentacao = ultima_movimentacao[0].strip()
+
+print(f'Última movimentação: {ultima_movimentacao}')
+
+
